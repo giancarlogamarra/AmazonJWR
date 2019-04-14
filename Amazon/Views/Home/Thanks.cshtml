@@ -1,0 +1,26 @@
+﻿@model Amazon.Models.Book 
+@{
+    Layout = null; 
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+    <link rel="stylesheet" href="~/vendor/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body class="text-center">
+    <p>
+        <h1>Gracias, por registrar el libro @Model.Title!</h1> 
+        @if (@Model.Price > 100)
+        {
+            @:Aunque parece un poco caro XD.
+        }
+        else
+        { 
+            @:El precio parece razonable.
+        }
+    </p>
+    <p>Click <a asp-action="ListResponses" class="badge badge-light">here</a>para ver la lista de Libros.</p>
+</body>
+</html>
