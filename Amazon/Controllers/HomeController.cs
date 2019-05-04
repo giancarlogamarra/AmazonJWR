@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Amazon.Models;
+using Amazon.Models.Extensions;
 
 namespace Amazon.Controllers
 {
@@ -12,9 +13,8 @@ namespace Amazon.Controllers
     {
         [HttpGet]
         public IActionResult Index() {
-            int hour = DateTime.Now.Hour;
-            ViewBag.Greeting = hour < 12 ? "Good morning" : "Good afternoon";
-            return View("MyView");
+            BookRepository.FillBooks();
+            return View("Index");
         }
         [HttpGet]
         public ViewResult RegBookForm() {
@@ -35,8 +35,10 @@ namespace Amazon.Controllers
 
         [HttpGet]
         public ViewResult ListResponses()
-        { 
-          return View(BookRepository.Books);
+        {
+            IEnumerable<Book> books = BookRepository.FilterBookByPagesRatherThan(250);
+            ViewBag.TotalPrice = books.TotalPriceExtension();
+          return View(books);
         }
 
 
@@ -63,10 +65,5 @@ namespace Amazon.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
