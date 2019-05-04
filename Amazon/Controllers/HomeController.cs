@@ -13,6 +13,7 @@ namespace Amazon.Controllers
     {
         [HttpGet]
         public IActionResult Index() {
+
             BookRepository.FillBooks();
             return View("Index");
         }

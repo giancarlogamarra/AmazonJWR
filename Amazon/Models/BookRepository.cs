@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Enumeraciones;
 using Amazon.Models.Extensions;
 namespace Amazon.Models
 {
@@ -22,25 +23,38 @@ namespace Amazon.Models
 
         public static List<Book> FillBooks()
         {
-            Book book1 = new Book()
+            if (books.Any())
             {
-                ISBN = "123456789",
-                Author = "Giancarlo G",
-                NroPages = 210,
-                Price = 270,
-                Title = "How to Program ASP.NET MVC"
-            };
-            Book book2 = new Book()
-            {
-                ISBN = "521648597",
-                Author = "Giancarlo G",
-                NroPages = 3200,
-                Price = 3000,
-                Title = "How to Program C#"
-            };
-            books.Add(book1);
-            books.Add(book2);
-            books.Add(null);
+                Book book1 = new Book()
+                {
+                    ISBN = "123456789",
+                    Author = "Giancarlo G",
+                    NroPages = 210,
+                    Price = 270,
+                    Title = "How to Program ASP.NET MVC"
+                };
+                Book book2 = new Book()
+                {
+                    ISBN = "521648597",
+                    Author = "Giancarlo G",
+                    NroPages = 3200,
+                    Price = 3000,
+                    Title = "How to Program C#"
+                };
+                Book book3 = new Book()
+                {
+                    ISBN = "54345345",
+                    Author = "Giancarlo G",
+                    NroPages = 2120,
+                    Price = 2000,
+                    Title = "How to Cook",
+                    LevelStock = LevelStock.SoldOut
+                };
+                books.Add(book1);
+                books.Add(book2);
+                books.Add(book3);
+                books.Add(null);
+            }
             return books;
         }
 
