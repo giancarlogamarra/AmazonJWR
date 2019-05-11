@@ -11,11 +11,10 @@ namespace Amazon.Controllers
 {
     public class HomeController : Controller
     {
+        public IRepository repository = BookRepository.SharedRepository;
         [HttpGet]
         public IActionResult Index() {
-
-            BookRepository.FillBooks();
-            return View("Index");
+            return View("Index", repository.Books.FilterByNroPagesGreaterThan(300).ToList());
         }
         [HttpGet]
         public ViewResult RegBookForm() {
@@ -26,7 +25,7 @@ namespace Amazon.Controllers
         {
             if (ModelState.IsValid)
             {
-                BookRepository.AddResponse(book);
+                repository.AddBook(book);
                 return View("Thanks", book);
             }
             else {
@@ -37,7 +36,7 @@ namespace Amazon.Controllers
         [HttpGet]
         public ViewResult ListResponses()
         {
-            IEnumerable<Book> books = BookRepository.FilterBookByPagesRatherThan(250);
+            IEnumerable<Book> books = repository.Books.FilterByNroPagesGreaterThan(0);
             ViewBag.TotalPrice = books.TotalPriceExtension();
           return View(books);
         }

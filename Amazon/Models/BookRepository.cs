@@ -6,24 +6,18 @@ using Amazon.Enumeraciones;
 using Amazon.Models.Extensions;
 namespace Amazon.Models
 {
-    public class BookRepository
+    public class BookRepository : IRepository
     {
+        public static BookRepository SharedRepository { get; } = new BookRepository();
         public static List<Book> books = new List<Book>();
-        public static IEnumerable<Book> Books
+        public IEnumerable<Book> Books => books;
+        public void AddBook(Book b)
         {
-            get
-            {
-                return books;
-            }
+            books.Add(b);
         }
-        public static void AddResponse(Book book)
-        { 
-            books.Add(book);
-        }
-
         public static List<Book> FillBooks()
         {
-            if (books.Any())
+            if (!books.Any())
             {
                 Book book1 = new Book()
                 {
@@ -57,6 +51,7 @@ namespace Amazon.Models
             }
             return books;
         }
+       
 
         public static decimal? TotalPrice() {
             return books.TotalPriceExtension();
@@ -72,5 +67,6 @@ namespace Amazon.Models
         {
             return books.FilterByNroPagesGreaterThan(nroPages);
         }
+ 
     }
 }

@@ -7,10 +7,10 @@ namespace Amazon.UnitTests
 {
     public class BookRepositoryTests
     {
-        [Fact]
-        public void Test1()
+        //[Fact]
+        /*public void Test1()
         {
-            //Arrange
+            //A5rrange
             Book newBook = new Book()
             {
                 Title = "Title 1",
@@ -23,6 +23,6 @@ namespace Amazon.UnitTests
             BookRepository.AddResponse(newBook);
             //Assert
             Assert.Equal("Title 1", BookRepository.Books.FirstOrDefault().Title);
-        }
+        }*/
     }
 }
