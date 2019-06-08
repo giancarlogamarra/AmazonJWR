@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Amazon.Models
 {
-    public interface IRepository
+    public interface IBookRepository
     {
-        IEnumerable<Book> Books { get; }
-        void AddBook(Book p);
+        IQueryable<Book> Books { get; }
     }
 }
