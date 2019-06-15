@@ -19,11 +19,12 @@ namespace Amazon.Controllers
             repository = repo;
         }
 
-        public ViewResult List(int bookPage = 1)
+        public ViewResult List(string category, int bookPage = 1)
         {
             var bookListViewModel = new BooksListViewModel
             {
                 Books = repository.Books
+                .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.Price)
                 .Skip((bookPage - 1) * PageSize)
                 .Take(PageSize),
@@ -32,6 +33,7 @@ namespace Amazon.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems = repository.Books.Count()
                 }
+                ,CurrentCategory = category
             };
             return View(bookListViewModel);
         }
